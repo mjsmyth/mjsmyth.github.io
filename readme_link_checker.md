@@ -14,9 +14,8 @@ Then when the GitHub integration was released, I updated the Python script to wo
 
 ## Script versions
 
-This script is in a GitHub repository at [https://github.com/mjsmyth/readme\_link\_checker](https://github.com/mjsmyth/readme_link_checker). Currently, the main branch version of the script just prints output to the terminal, and there is a branch with a new script that creates a CSV output  file.
+This script is in a GitHub repository at [https://github.com/mjsmyth/readme\_link\_checker](https://github.com/mjsmyth/readme_link_checker). Currently, the main branch version of the script prints output to the terminal, but there is another branch with a new version that creates a CSV output  file.
 
 ## Obsolescence
 
-In any case, ReadMe now includes link checking as part of the AI linter feature.
-
+I'm pleased to say that I don't need this script any more because ReadMe now has link checking as part of the AI linter feature!
