@@ -30,57 +30,14 @@ Abiquo doesn't validate the phone number.
 
 In the OpenID basic workflow, the user interacts with Abiquo (the Application), which is also a client of the OpenID Connect server (the Identity Server).
 
-```mermaid
-flowchart TD
-        A("fa:fa-user User 
-        (browser)")
-        B("OpenID Connect server
-        (authorization server)") 
-        C("Abiquo
-        (relying party)")
-
-        A -- Access to Abiquo --> C
-        A -- Authenticate and Allow</br>(Credentials) --> B 
-        B -- Receive access token</br>& user info --> C
-        C -- Delegate authentication --> B
-
-        style A color:#FFFFFF, fill:#AA00FF, stroke:#AA00FF
-        style C color:#FFFFFF, stroke:#FF6D00, fill:#FF6D00
-        style B color:#FFFFFF, stroke:#2962FF, fill:#2962FF
-```
-
 The following diagram shows the basic authentication and authorization workflow when using the OpenID Connect integration.
 
-```mermaid
-sequenceDiagram
-    participant User as User (Browser)
-    participant Abiquo as Abiquo (Relying Party)
-    participant OIDC as OpenID Connect Server (Auth Server)
-    participant IdP as Identity Provider
-
-    User->>Abiquo: Initial user access: GET /ui or /api 
-    Abiquo-->>User: 302 Redirect to /openid/authorize
-
-    User->>OIDC: GET /authorize (login request) & enter credentials
-
-    OIDC->>User: Request user approval (messages: "Will you allow?")
-    User->>OIDC: User approves: Allow
-
-    OIDC-->>User: 302 Redirect to abiquo/handle_code?code=axxyz
-    User->>Abiquo: Access redirect URI with auth code
-
-    Abiquo->>OIDC: Request tokens (POST /token)
-    OIDC-->>Abiquo: Return tokens (access + ID token)
-
-    Abiquo->>IdP: GET /userinfo (with access token)
-    IdP-->>Abiquo: User info response
-
-    Abiquo-->>User: Redirect to dashboard (access, refresh, ID tokens)
-```
+![Flowchart:Flowchart of OpenID basic workflow](images/openid_flowchart.png)
+[Flowchart Mermaid file](openid_flowchart.md)
 
 The authorization process is as follows:
 
-1. Users access the Abiquo portal and are redirected to the OpenID Connect server
+1. Users access the Abiquo portal and it redirects them to the OpenID Connect server
 2. Users enter their credentials to log in to the OpenID Connect server (the credentials are never exposed to Abiquo). It displays the consent screen that describes the permissions that Abiquo is requesting and the information it needs to access.  
 3. Upon successful authentication and consent grant, the OpenID Connect server issues the following tokens and redirects the user back to the application:  
    1. **ID token** \- A JWT token containing the information about the user.  
@@ -92,7 +49,7 @@ The authorization process is as follows:
 Notes:
 
 * At any time, users with the refresh token can call the Abiquo API to refresh the access token.
-* If you configure global logout, when users log out from the Abiquo platform they are signed out from the OpenID Connect server.
+* If you configure global logout, when users sign out from the Abiquo platform, it signs them out of the OpenID Connect server.
 
 ## ACR validation
 
@@ -121,7 +78,7 @@ In contrast, when the platform is in OpenID Connect mode, Abiquo authenticates a
 
 This is an overview of the steps to configure the OpenID Connect Integration.
 
-1. Configure the cloud admin user with Abiquo in normal auth mode  
+1. Configure cloud admin user with Abiquo in normal auth mode  
 2. Map OpenID users to Abiquo enterprises and roles with Abiquo in normal auth mode  
 3. Register Abiquo as a client application on the OpenID Connect server and obtain OpenID client credentials  
 4. Configure the OpenID Connect server in `abiquo.properties`  
@@ -189,14 +146,20 @@ Register Abiquo as a client application in the OpenID system and obtain the clie
 
 To configure OpenID Connect in `abiquo.properties`:
 
-1. Configure OpenID Connect server details including endpoints, claims, and so on  
-2. Configure OpenID client credentials from the previous step of registering Abiquo as a client application  
+1. Configure OpenID Connect server details including endpoints and claims
+2. Configure OpenID client credentials from the previous step of registering Abiquo as a client application
 3. Activate OpenID in `abiquo.properties`, by setting `abiquo.auth.module` to `openid`
 
 If your OpenID Connect provider implements the [Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) extension, you may be able to get the value of the different endpoints. To do this, go to the well-known configuration endpoint, as described in the [provider configuration](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig) section.
 
-The following sequence diagram shows how the different endpoints are used from a user and relying party perspective.  
+## OpenID sequence diagram
+
+The following sequence diagram shows how to use the different endpoints from a user and relying party perspective.
 The diagram depicts the interactions between all parties involved in the OpenID Connect protocol.
+
+![Sequence diagram:Sequence Diagram of OpenID Interactions](./images/openid_sequence_diagram.png)
+
+[Sequence diagram Mermaid file](openid_sequence_diagram.md)
 
 ### Table of Abiquo OpenID Connect properties
 
@@ -211,7 +174,7 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 | **abiquo.openid.target** | The URL where the user is redirected from the Identity Server upon successful authentication. Something like `http://<abiquo ui host>/ui/#/dashboard` |
 | **abiquo.openid.role-claim** | The name of the claim returned by the authorization server that contains the names used to map the user permissions to an Abiquo role |
 | **abiquo.openid.enterprise-claim** | The name of the claim returned by the authorization server that contains the names used to map the Abiquo enterprise where the user belongs |
-| **abiquo.openid.enterprise-property** | (Optional) If present, Abiquo searches for an enterprise that has a property with the name configured in this property. It will use the value to match the "enterprise claim" when resolving the user's enterprise. If absent, Abiquo looks for an enterprise with the name returned in the "enterprise claim". |
+| **abiquo.openid.enterprise-property** | (Optional) If present, Abiquo searches for an enterprise that has a property with the name configured in this property. It uses the value to match the "enterprise claim" when resolving the user's enterprise. If absent, Abiquo looks for an enterprise with the name returned in the "enterprise claim". |
 | **abiquo.openid.issuer** | The OpenID Connect authorization issuer. |
 | **abiquo.openid.authorization.endpoint** | The OpenID Connect authorization endpoint. ***This endpoint must be accessible from the user's browser*** |
 | **abiquo.openid.token.endpoint** | The OpenID Connect token endpoint. This endpoint must be accessible from the Abiquo server. |
