@@ -33,7 +33,7 @@ In the OpenID basic workflow, the user interacts with Abiquo (the Application), 
 The following diagram shows the basic authentication and authorization workflow when using the OpenID Connect integration.
 
 ![Flowchart:Flowchart of OpenID basic workflow](images/openid_flowchart.png)
-[Flowchart Mermaid file](openid_flowchart.md)
+[Flowchart Mermaid file](diagrams/openid_flowchart.md)
 
 The authorization process is as follows:
 
@@ -157,9 +157,9 @@ If your OpenID Connect provider implements the [Discovery](https://openid.net/sp
 The following sequence diagram shows how to use the different endpoints from a user and relying party perspective.
 The diagram depicts the interactions between all parties involved in the OpenID Connect protocol.
 
-![Sequence diagram:Sequence Diagram of OpenID Interactions](./images/openid_sequence_diagram.png)
+![Sequence diagram:Sequence Diagram of OpenID Interactions](images/openid_sequence_diagram.png)
 
-[Sequence diagram Mermaid file](openid_sequence_diagram.md)
+[Sequence diagram Mermaid file](diagrams/openid_sequence_diagram.md)
 
 ### Table of Abiquo OpenID Connect properties
 
