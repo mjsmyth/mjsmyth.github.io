@@ -10,13 +10,13 @@ Discovery, dynamic registration, and other optional features are out of the scop
 
 Changes to the OpenID integration in Abiquo 5.1.2
 
-A new Abiquo configuration property was introduced in Abiquo 5.1.2
+This version introduced a new Abiquo configuration property
 
 * `abiquo.login.samesite`
 
 Changes to the OpenID integration in Abiquo 4.6
 
-Two new Abiquo configuration properties were introduced in Abiquo 4.6.0
+This version introduced two new Abiquo configuration properties
 
 * `abiquo.openid.cookie.maxage`  
 * `abiquo.openid.cookie.refreshtoken.include`
@@ -39,9 +39,9 @@ The authorization process is as follows:
 
 1. Users access the Abiquo portal and it redirects them to the OpenID Connect server
 2. Users enter their credentials to log in to the OpenID Connect server (the credentials are never exposed to Abiquo). It displays the consent screen that describes the permissions that Abiquo is requesting and the information it needs to access.  
-3. Upon successful authentication and consent grant, the OpenID Connect server issues the following tokens and redirects the user back to the application:  
+3. Upon successful authentication and consent grant, the OpenID Connect server issues the following tokens and redirects the user back to the app:  
    1. **ID token** \- A JWT token containing the information about the user.  
-   2. **Access token** \- An OAuth token that provides access to the application resources on behalf of the user.  
+   2. **Access token** \- An OAuth token that provides access to the app resources on behalf of the user.  
    3. **Refresh token** \- An optional token to refresh the access token when it expires.
 4. Abiquo uses the access token to request information about the logged user (such as permissions) and creates the corresponding user in the Abiquo database.  
 5. Users access the Abiquo platform, including the Abiquo API, with the access token.  
@@ -88,9 +88,9 @@ This is an overview of the steps to configure the OpenID Connect Integration.
 8. Start the Abiquo Server  
 9. Configure API and Outbound API clients to work with an access token
 
-## Configure the cloud admin user
+## Configure cloud admin user
 
-Configure the cloud admin user with Abiquo in normal authentication mode.  
+Configure cloud admin user with Abiquo in normal authentication mode.  
 Remember that Abiquo deactivates this user when you enable OpenID Connect authentication mode.
 
 ## Map OpenID Connect users to Abiquo enterprises and roles
@@ -100,11 +100,11 @@ In OpenID Connect authentication mode, when a user successfully authenticates th
 * A user role such as cloud admin, tenant admin, cloud user  
 * An enterprise (cloud tenant) that the user belongs to
 
-To enable Abiquo to match the user, you must work in Abiquo to **map** the Abiquo enterprise and role to the OpenID user data. Work in normal authentication mode as the cloud admin user. If Abiquo can't find the role and enterprise, it won't create the OpenID user.
+To enable Abiquo to match the user, you must work in Abiquo to **map** the Abiquo enterprise and role to the OpenID user data. Work in normal authentication mode as cloud admin user. If Abiquo can't find the role and enterprise, it won't create the OpenID user.
 
 ### **How Abiquo determines which role to assign to an OpenID user**
 
-The OpenID Connect server returns user data, including a list of the external roles/permissions for the user, which is called a role claim. Abiquo identifies the role claim in the OpenID user data using the name you configure with the `abiquo.openid.role-claim` property. Abiquo searches for an existing Abiquo role with the same LDAP attribute data as the role claim.
+The OpenID Connect server returns user data, including a list of the external roles/permissions for the user, which is a role claim. Abiquo identifies the role claim in the OpenID user data using the name you configure with the `abiquo.openid.role-claim` property. Abiquo searches for an existing Abiquo role with the same LDAP attribute data as the role claim.
 
 ### Map external roles to Abiquo roles
 
@@ -117,8 +117,8 @@ Remember that a user's external roles must map to one local role in their enterp
 
 ### How Abiquo determines which enterprise an OpenID user should belong to
 
-The OpenID Connect server returns user data, including the tenant that a user should belong to, which is called an enterprise claim. Abiquo can look up this enterprise in Abiquo by enterprise name or by enterprise property.  
-If Abiquo can't find the enterprise, it won't allow the user to log in. If the user account doesn't exist, Abiquo will creates it in the enterprise. If the user account exists in another enterprise, Abiquo moves it to the one assigned by the OpenID Connect server.
+The OpenID Connect server returns user data, including the tenant that a user should belong to, which is an enterprise claim. Abiquo can look up this enterprise in Abiquo by enterprise name or by enterprise property.  
+If Abiquo can't find the enterprise, it won't let the user log in. If the user account doesn't exist, Abiquo creates it in the enterprise. If the user account exists in another enterprise, Abiquo moves it to the one assigned by the OpenID Connect server.
 
 Abiquo obtains the enterprise claim defined by the `abiquo.openid.enterprise-claim` property.  
 Abiquo matches the enterprise claim to the enterprise name if the `abiquo.openid.enterprise-property` property isn't set in `abiquo.properties`.  
@@ -138,9 +138,9 @@ To map an OpenID enterprise to an Abiquo enterprise by **enterprise property**:
 
 When the authorization server returns the enterprise claim, Abiquo looks for all enterprises with a `domain` property. It finds the one with the value that matches the value returned by the OpenID Connect server. In the example, when the OpenID Connect server returns the value `http://abiquo.com` in the enterprise claim, Abiquo selects the enterprise.
 
-## Register Abiquo as a client application in the OpenID Connect server
+## Register Abiquo as a client app in the OpenID Connect server
 
-Register Abiquo as a client application in the OpenID system and obtain the client credentials: `client name`, `client id` and `client secret`. Configure these in `abiquo.properties` in the next step.
+Register Abiquo as a client app in the OpenID system and obtain the client credentials: `client name`, `client id` and `client secret`. Configure these in `abiquo.properties` in the next step.
 
 ## Configure Abiquo properties
 
@@ -174,13 +174,13 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 | **abiquo.openid.target** | The URL where the user is redirected from the Identity Server upon successful authentication. Something like `http://<abiquo ui host>/ui/#/dashboard` |
 | **abiquo.openid.role-claim** | The name of the claim returned by the authorization server that contains the names used to map the user permissions to an Abiquo role |
 | **abiquo.openid.enterprise-claim** | The name of the claim returned by the authorization server that contains the names used to map the Abiquo enterprise where the user belongs |
-| **abiquo.openid.enterprise-property** | (Optional) If present, Abiquo searches for an enterprise that has a property with the name configured in this property. It uses the value to match the "enterprise claim" when resolving the user's enterprise. If absent, Abiquo looks for an enterprise with the name returned in the "enterprise claim". |
+| **abiquo.openid.enterprise-property** | Optional: If present, Abiquo searches for an enterprise that has a property with the name configured in this property. It uses the value to match the enterprise claim when resolving the user's enterprise. If absent, Abiquo looks for an enterprise with the name returned in the enterprise claim. |
 | **abiquo.openid.issuer** | The OpenID Connect authorization issuer. |
 | **abiquo.openid.authorization.endpoint** | The OpenID Connect authorization endpoint. ***This endpoint must be accessible from the user's browser*** |
 | **abiquo.openid.token.endpoint** | The OpenID Connect token endpoint. This endpoint must be accessible from the Abiquo server. |
 | **abiquo.openid.userinfo.endpoint** | The OpenID Connect user info endpoint. This endpoint must be accessible from the Abiquo server. |
 | **abiquo.openid.jwks.endpoint** | The OpenID Connect JWKS endpoint. This endpoint must be accessible from the Abiquo server. |
-| **abiquo.openid.endsession.endpoint** | (Optional) If configured, Abiquo attempts to perform a global logout performing a request to this endpoint. This is part of the [Session Management](http://openid.net/specs/openid-connect-session-1_0.html) optional spec. ***This endpoint must be accessible from the user's browser.*** |
+| **abiquo.openid.endsession.endpoint** | Optional: If configured, Abiquo attempts to perform a global logout performing a request to this endpoint. This is part of the [Session Management](http://openid.net/specs/openid-connect-session-1_0.html) optional spec. ***This endpoint must be accessible from the user's browser.*** |
 | ***OpenID Connect client configuration*** |  |
 | **abiquo.openid.client.name** | The name of the client on the OpenID Connect server for the Abiquo platform. |
 | **abiquo.openid.client.id** | The ID of the client on the OpenID Connect server for the Abiquo platform. |
@@ -192,12 +192,12 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 
 ## **Configure Abiquo outbound API module**
 
-Register the Outbound API as an OAuth application (for Outbound API user or admin user) and use the tool to obtain the OAuth access token. Configure credentials in abiquo.properties and remove any old credentials properties
+Register the Outbound API as an OAuth app (for Outbound API user or admin user) and use the tool to obtain the OAuth access token. Configure credentials in abiquo.properties and remove any old credentials properties
 
 In OpenID Connect mode, the normal authentication (using HTTP Basic Authentication) is deactivated, so you must configure the Outbound API credentials as OAuth tokens. To do this:
 
-1. Create a new application for the  "default api outbound user"  as explained in the  "Manage OAuth Applications"  guide, and set all the privileges for that user; OR  
-   Create the application in the administrator account, and select only the permissions for the  "default api outbound user"  
+1. Create a new app for the  "default api outbound user"  as explained in the  "Manage OAuth Applications"  guide, and set all the privileges for that user; OR  
+   Create the app in the administrator account, and select only the permissions for the  "default api outbound user"  
 2. Get the OAuth access tokens. You can use an unsupported Abiquo utility to obtain the access tokens.  
    Contact Abiquo Support to obtain the Abiquo utility.  
 3. In the `abiquo.properties` file of the Abiquo Server  
@@ -230,7 +230,7 @@ Configure the OpenID Connect client UI properties in the `client-config-custom.j
 
 ## Configure API and outbound clients
 
-In OpenID Connect mode, Abiquo deactivates Basic Authentication, so use an access token to authenticate with the API (or against the Outbound API endpoint).
+In OpenID Connect mode, Abiquo deactivates Basic Authentication, so use an access token to authenticate with the API or the Outbound API endpoint.
 
 Abiquo still supports authentication using the session cookie or Abiquo OAuth applications as before.
 
@@ -247,10 +247,10 @@ On the Abiquo Server, optionally set the `abiquo.login.samesite` property to con
 
 ## Refreshing access tokens
 
-Access tokens have an expiration, so at some time they stop working. When this happens, the user can use a refresh token to request a new access token, if the refresh token was returned during authentication. Refresh tokens also expire, but have a significantly longer life time (the default is one week).  
-Some OpenID Connect providers issue new refresh tokens every time an access token is refreshed, In this case, the refresh mechanism can be used without limit.
+Access tokens have an expiration, so at some time they stop working. When this happens, the user can use a refresh token to request a new access token, if the refresh token was returned during authentication. Refresh tokens also expire, but have a significantly longer life time: the default is 1 week.  
+Some OpenID Connect providers issue new refresh tokens every time you refresh an access token, In this case, you can use the refresh mechanism without limits.
 
-To request a new access token using a refresh token, an HTTP request must be issued to the `openid_connect_refresh` Abiquo API endpoint, passing the refresh token as a query parameter:
+To request a new access token using a refresh token, send an HTTP request to the `openid_connect_refresh` Abiquo API endpoint, passing the refresh token as a query parameter:
 
 ```
 /api/openid\_connect\_refresh?refresh\_token=" \-H "Accept: application/vnd.abiquo.oidctokens+json"\\n\\n{\\n "scope" : "openid profile email abiquo",\\n "id\_token" : "eyAidHlwIjogIkpXVCIsICJraWQiOiAiemhCb2ZiWncraSIsICJhbGciOiAiUlMyNTYiIH0.eyAiYXRfaGFzaCI6ICJoVmJBZ2t2NGRBalh5bFFQZGNYVFR3IiwgInN1YiI6ICJvcGVuaWQtYWRtaW4iLCAiYXVkaXRUcmFja2luZ0lkIjogIjcxN2I3YWY0LTNmMGQtNGU2NS1iZWJmLWE3MWIzODg4MWE1My05NTcwIiwgImlzcyI6ICJodHRwOi8vb3BlbmFtLmJjbi5hYmlxdW8uY29tOjgwL29wZW5hbS9vYXV0aDIvZGV2ZWxvcGVycyIsICJ0b2tlbk5hbWUiOiAiaWRfdG9rZW4iLCAiZ3JvdXBzIjogWyAiaWQ9YWRtaW5zLG91PWdyb3VwLG89ZGV2ZWxvcGVycyxvdT1zZXJ2aWNlcyxkYz1vcGVuYW0sZGM9Zm9yZ2Vyb2NrLGRjPW9yZyIgXSwgImdpdmVuX25hbWUiOiAiT3BlbklEIiwgImF1ZCI6ICJhYmlxdW8iLCAib3JnLmZvcmdlcm9jay5vcGVuaWRjb25uZWN0Lm9wcyI6ICJhNWExMDNlYS05MmQyLTQxZDgtOGJkYi0xMWNjZTJmMGZlYjMiLCAiYXpwIjogImFiaXF1byIsICJhdXRoX3RpbWUiOiAxNDczOTU5Njk2LCAiZG9tYWluIjogIkFiaXF1byIsICJuYW1lIjogIk9wZW5JRCBBZG1pbiIsICJyZWFsbSI6ICIvZGV2ZWxvcGVycyIsICJleHAiOiAxNDczOTYzMjk2LCAidG9rZW5UeXBlIjogIkpXVFRva2VuIiwgImlhdCI6IDE0NzM5NTk2OTYsICJmYW1pbHlfbmFtZSI6ICJBZG1pbiIsICJlbWFpbCI6ICJvcGVuaWQtYWRtaW5AYWJpcXVvLmNvbSIgfQ.JL3yUCtn4VnGewANcD2SbqX5RZfxKqNQG\_p2vc5UldRIxdr4BNg3u-C219-XA8dfnrLvBL6CmrJoItIy7XDP7qX8DJO7a9pea8QCugXT9NdepdQh-SEPdQ3d-acm4M5\_1bALIjvItDW7pWVnqppYUyjVzQY\_oX385CccUuYaYh-9Glj-9VPdnr9pZXZFkb07K0ab2iQtfu7sshS6-iZ0mF6unF2pWvsJHfeUSYb1X9yRfehhRgTXltlVno7uNEfPopM6MbISr-Bhb7zxiJ-Zte\_peaiZKjrU7QEQFDIj13M6YQ",\\n "refresh\_token" : "78ecb72e-fd0e-4825-ae0a-635159c461ff",\\n "token\_type" : "Bearer",\\n "links" : \[\],\\n "expires\_in" : 3599,\\n "access\_token" : "a381c059-654f-4c03-852b-cf507c5372ec"\\n}
