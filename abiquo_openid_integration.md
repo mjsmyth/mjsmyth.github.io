@@ -68,7 +68,7 @@ This is an overview of the steps to configure the OpenID Connect Integration.
 2. Map OpenID users to Abiquo enterprises and roles while Abiquo is in normal authentication mode.
 3. Register Abiquo as a client application on the OpenID Connect server, and obtain the OpenID client credentials.
 4. Configure the OpenID Connect server in `abiquo.properties`.  
-5. Register the Abiquo Outbound API as an OAuth application and configure `abiquo.properties`. For this step, you can download an unsupported tool from the Abiquo Support Portal.
+5. Register the Abiquo Outbound API as an OAuth application and configure `abiquo.properties`. For this step, you can download a tool from the Abiquo Support Portal.
 6. Configure the OpenID Connect logout.
 7. Configure Abiquo UI properties.
 8. Start the Abiquo Server.
@@ -153,7 +153,7 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 
 | Property | Description |
 | :---- | :---- |
-| ***OpenID Connect server configuration*** |  |
+| **OpenID Connect server configuration** |  |
 | **abiquo.auth.module** | The Abiquo authentication module. Must be: `openid` |
 | **abiquo.openid.cookie.maxage** | After the OpenID authentication flow, the API redirect adds a cookie with the access token and the id token. The expiry of the OpenID authentication cookie in seconds. A negative value means that the cookie isn't stored persistently and will be deleted when the web browser exits. A zero value causes the cookie to be deleted. *Default: 30* |
 | **abiquo.openid.cookie.refreshtoken.include** | If true, the OpenID authentication cookie also contains the refresh token. *Default: false* |
@@ -180,13 +180,13 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 
 When you run Abiquo in OpenID Connect mode, you must configure the Outbound API to use OAuth tokens.
 
-Register the Outbound API as an OAuth app (for Outbound API user or admin user). You can use an unsupported Abiquo tool (download from the Abiquo Support portal) to obtain the OAuth access tokens. Configure credentials in `abiquo.properties` and remove any old credentials properties.
+Register the Outbound API as an OAuth app (for Outbound API user or admin user). You download an Abiquo tool from the Abiquo Support portal to obtain the OAuth access tokens. Configure credentials in `abiquo.properties` and remove any old credentials properties.
 
 Here are the full configuration steps. 
 
 1. Create a new app for the  "default api outbound user"  as explained in the  "Manage OAuth Applications"  guide, and set all the privileges for that user; OR  
    Create the app in the administrator account, and select only the permissions for the  "default api outbound user".
-2. Get the OAuth access tokens. You can use an unsupported Abiquo tool to obtain the access tokens.  
+2. Get the OAuth access tokens. You can use an Abiquo tool to obtain the access tokens.  
    Download the tool from the Abiquo Support portal.  
 3. In the `abiquo.properties` file of the Abiquo Server  
    1. Configure the following OAuth properties  
@@ -212,13 +212,13 @@ Configure the OpenID Connect client UI properties in the `client-config-custom.j
 | Property | Description |
 | :---- | :---- |
 | `client.openid.enabled` | **Deprecated in Abiquo 4.7.1** |
-| `client.openid.skip.login.view` | **Deprecated in Abiquo 4.7.1 for UI 5\.**. By default, when in OpenID mode, Abiquo shows an initial screen with a link to the Authentication portal. If this property is `true`, then Abiquo doesn't display the initial screen and it redirects users directly to the Authentication portal. |
+| `client.openid.skip.login.view` | **Deprecated in Abiquo 4.7.1 for UI 5.**. By default, when in OpenID mode, Abiquo shows an initial screen with a link to the Authentication portal. If this property is `true`, then Abiquo doesn't display the initial screen and it redirects users directly to the Authentication portal. |
 | `client.skip.login.view` | By default, when in OpenID mode, Abiquo shows an initial screen with a link to the Authentication portal. If this property is `true`, Abiquo doesn't display the initial screen and it redirects users directly to the Authentication portal. |
 | `client.auth.module` | Abiquo login modules to use with options for Basic Auth (default), Open ID, and SAML. See `client-config-default.json` for examples. |
 
 ## Start the Abiquo server
 
-Start the Abiquo server and log in to the Abiquo UI. Check that your login is handled by the OpenID server. Check OpenID logins for your test users with different roles. 
+Start the Abiquo server and log in to the Abiquo UI with your admin user. Check that your user is properly redirected to the OpenID Connect login page, and that you can correctly access the full Abiquo dashboard. Confirm that logging in with a test user of each mapped role succeeds and opens the correct enterprise. Check that you cannot log in with test users that should not have access under OpenID Connect.
 
 ## Configure API and outbound clients
 
@@ -231,11 +231,16 @@ To obtain an access token:
 1. Manually log in to the Abiquo UI
 2. When you are redirected to the Abiquo console, the access token and refresh token are in the URI.
 
-Using the token, you can issue requests to the API by providing the following HTTP header: `Authorization: Bearer <ACCESS_TOKEN>`.
+Using the token, you can issue requests to the API by providing the following HTTP header: `Authorization: Bearer <ACCESS_TOKEN>`. For example:
+
+```
+  ▎ curl -X GET "http://<abiquo-api-host>/api/cloud/virtualdatacenters" \
+  ▎   -H "Authorization: Bearer <ACCESS_TOKEN>"
+```   
 
 ## Optional SameSite cookie flag configuration
 
-On the Abiquo Server, optionally set the `abiquo.login.samesite` property to control the value of the `SameSite` flag of the login cookie. See [Abiquo Configuration Properties\#samesite](https://wiki.abiquo.com/display/doc/Abiquo+Configuration+Properties#AbiquoConfigurationProperties-samesite)
+On the Abiquo Server, optionally set the `abiquo.login.samesite` property to control the value of the `SameSite` flag of the login cookie. See [Abiquo Configuration Properties#samesite] (https://wiki.abiquo.com/display/doc/Abiquo+Configuration+Properties#AbiquoConfigurationProperties-samesite).
 
 ## Refreshing access tokens
 
