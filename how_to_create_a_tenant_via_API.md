@@ -7,22 +7,22 @@ You will need a datacenter or public cloud region.
 
 Your user role must include the following privileges: 
 
-> * ENTERPRISE_ADMINISTER_ALL  
-> * MANAGE_ENTERPRISES  
-> * MANAGE_USERS  
-> * APPLIB_ALLOW_MODIFY
+* ENTERPRISE_ADMINISTER_ALL  
+* MANAGE_ENTERPRISES  
+* MANAGE_USERS  
+* APPLIB_ALLOW_MODIFY
 
 After you create a tenant, you can continue and add templates. See [How to add a VM template in a datacenter via API](#bookmark=id.2aqo3qhrhj2k)  
 The following pages describe the enterprise UI and Apps library functionality:
 
-> * [Manage enterprises](#bookmark=id.2wbxvt8qbka)  
-> * [Configure an enterprise in a cloud location](#bookmark=id.98qrzpfq1kec)  
-> * [Manage users](#bookmark=id.g58ewup573k5)
+* [Manage enterprises](#bookmark=id.2wbxvt8qbka)  
+* [Configure an enterprise in a cloud location](#bookmark=id.98qrzpfq1kec)  
+* [Manage users](#bookmark=id.g58ewup573k5)
 
 And to add templates:
 
-> * [Add VM Templates to the Apps Library](#bookmark=id.cp31xqseqe7)  
-> * [Manage VM templates](#bookmark=id.u2ytbjw7fgzt)
+* [Add VM Templates to the Apps Library](#bookmark=id.cp31xqseqe7)  
+* [Manage VM templates](#bookmark=id.u2ytbjw7fgzt)
 
 ## Summary diagram
 
@@ -87,7 +87,7 @@ K-->Q((<font color=f3efe6> \* ))
 
 ## Detailed steps
 
-> 1. **Create an enterprise object**  
+1. **Create an enterprise object**  
    1. Reference: [Enterprise resource](https://wiki.abiquo.com/api/latest/enterprise.html)  
    2. If you use the following example, change the name and enterprise allocation limits as required  
       Sample enterpriseentity.json file
@@ -116,7 +116,7 @@ K-->Q((<font color=f3efe6> \* ))
       ```
 
    3. Optionally set the reseller or keyNode attributes for an enterprise hierarchy  
-> 2. **Create the enterprise**  
+2. **Create the enterprise**  
    * Reference: [Create an enterprise reference](https://wiki.abiquo.com/api/latest/EnterprisesResource.html#create-an-enterprise)  
    * cURL
 
@@ -317,18 +317,18 @@ K-->Q((<font color=f3efe6> \* ))
      }
      ```
 
-> 3. Keep the enterprise's edit link, to use when you switch to the enterprise
->
->    ```json
->    {
->        "title": "enterprise_444",
->        "rel": "edit",
->        "type": "application/vnd.abiquo.enterprise+json",
->        "href": "https://example.com:443/api/admin/enterprises/292"
->    },
->    ```
+3. Keep the enterprise's edit link, to use when you switch to the enterprise
 
-> 4. **Get a link to a datacenter or public cloud region for the enterprise to use**  
+   ```json
+   {
+       "title": "enterprise_444",
+       "rel": "edit",
+       "type": "application/vnd.abiquo.enterprise+json",
+       "href": "https://example.com:443/api/admin/enterprises/292"
+   },
+   ```
+
+4. **Get a link to a datacenter or public cloud region for the enterprise to use**  
    1. Get the datacenter or public cloud region. References:  
       1. [List datacenter names and ids](https://wiki.abiquo.com/api/latest/DatacentersResource.html#list-datacenter-names-and-ids)  
       2. [List public cloud regions](https://wiki.abiquo.com/api/latest/PublicCloudRegionsResource.html#list-public-cloud-regions)  
@@ -355,7 +355,7 @@ K-->Q((<font color=f3efe6> \* ))
          }
          ```
 
-> 5. **Create a limit object to allow the enterprise to use the datacenter or public cloud region**  
+5. **Create a limit object to allow the enterprise to use the datacenter or public cloud region**  
    1. Create a limit object, which represents an allowed location and allocation limits.  
       1. Limits have links to also allow access to resources such as datastoretiers and backup policies, and set default roles.  
    2. Reference: [Limit resource](https://wiki.abiquo.com/api/latest/limit.html)  
@@ -383,7 +383,7 @@ K-->Q((<font color=f3efe6> \* ))
       }
       ```
 
-> 6. **Create an enterprise limit to allow an enterprise to use a datacenter or public cloud region**  
+6. **Create an enterprise limit to allow an enterprise to use a datacenter or public cloud region**  
    1. Reference: [Create a datacenter limit](https://wiki.abiquo.com/api/latest/EnterpriseLimitsByDatacentersResource.html#create-a-datacenter-limit)  
    2. cURL
 
@@ -542,9 +542,9 @@ K-->Q((<font color=f3efe6> \* ))
       }
       ```
 
-> 7. **Switch to the new enterprise**  
+7. **Switch to the new enterprise**  
    1. Reference: [How to switch enterprises via API](#bookmark=id.50l3n18dfd74)  
-> 8. **Create user objects to create users**  
+8. **Create user objects to create users**  
    1. Reference: [User](https://wiki.abiquo.com/api/latest/user.html)  
    2. Get user role and scope links to add to user objects  
    3. For roles, you can use the has` parameter to filter the results with a text string  
@@ -648,7 +648,7 @@ K-->Q((<font color=f3efe6> \* ))
       }
       ```
 
-> 9. **Create a user**  
+9. **Create a user**  
    1. Reference: [Create a user in an enterprise](https://wiki.abiquo.com/api/latest/UsersResource.html#create-a-user-in-an-enterprise)  
    2. cURL:
 
@@ -735,4 +735,4 @@ K-->Q((<font color=f3efe6> \* ))
       }
       ```
 
-> 10. **Add templates to the enterprise's Apps library.** See [How to add a VM template in a datacenter via API](#bookmark=id.2aqo3qhrhj2k)
+10. **Add templates to the enterprise's Apps library.** See [How to add a VM template in a datacenter via API](#bookmark=id.2aqo3qhrhj2k)
