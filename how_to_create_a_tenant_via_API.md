@@ -27,6 +27,7 @@ And to add templates:
 ## Summary diagram
 
 The steps in this diagram link to the API reference guide resources and data entities sections.
+See also [Mermaid summary diagram](diagrams/how_to_add_a_tenant_via_API_flowchart.md)
 
 ```
 
@@ -561,12 +562,12 @@ The steps in this diagram link to the API reference guide resources and data ent
    2. Get user role and scope links to add to user objects  
    3. For roles, you can use the has` parameter to filter the results with a text string  
       1. IDs of roles and scopes that are useful for testing:  
-         * Global scope: 1  
-         * Cloud admin: 1  
-         * User: 2  
-         * Enterprise admin: 3  
-   4. For Abiquo authentication, you will need to supply an initial password  
-   5. References  
+         * Global scope: 1
+         * Cloud admin: 1
+         * User: 2
+         * Enterprise admin: 3
+   4. For Abiquo authentication, supply an initial password
+   5. References
       1. [List roles](https://wiki.abiquo.com/api/latest/RolesResource.html#list-roles)  
       2. [List scopes](https://wiki.abiquo.com/api/latest/ScopesResource.html#list-scopes)  
    6. Example role and scope links  
