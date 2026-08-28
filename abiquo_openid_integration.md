@@ -2,8 +2,7 @@
 
 ## Introduction
 
- This page is a reference for systems administrators integrating Abiquo with an OpenID Connect provider for SSO and federated authorization. It assumes you already have an OpenID Connect provider and admin 
- access to abiquo.properties. For a step-by-step setup, start at OpenID Connect configuration steps (#openid-connect-configuration-steps).
+ This page is a reference for systems administrators integrating Abiquo with an OpenID Connect provider for SSO and federated authorization. It assumes you already have an OpenID Connect provider and admin access to abiquo.properties. For a step-by-step setup, start at OpenID Connect configuration steps (#openid-connect-configuration-steps).
 
 ## Scope
 
@@ -12,7 +11,6 @@ Abiquo integrates with [OpenID Connect](https://openid.net/connect/) to let Abiq
 The integration targets the [core spec](https://openid.net/specs/openid-connect-core-1_0.html), but also implements some optional features such as the  [*RP-Initiated-Logout*](https://openid.net/specs/openid-connect-session-1_0.html#RPLogout) from the optional Session Management spec.
 
 The integration doesn't cover discovery, dynamic registration, or other optional features.
-
 
 ## Basic workflow
 
@@ -167,7 +165,7 @@ To enable the OpenID Connect mode, configure the following properties in Abiquo:
 | **abiquo.openid.userinfo.endpoint** | The OpenID Connect user info endpoint. This endpoint must be accessible from the Abiquo server. |
 | **abiquo.openid.jwks.endpoint** | The OpenID Connect JWKS endpoint. This endpoint must be accessible from the Abiquo server. |
 | **abiquo.openid.endsession.endpoint** | Optional: If configured, Abiquo attempts to perform a global logout performing a request to this endpoint. This is part of the [Session Management](http://openid.net/specs/openid-connect-session-1_0.html) optional spec. ***This endpoint must be accessible from the user's browser.*** |
-| **OpenID Connect client configuration** |  |
+| **OpenID Connect client configuration** | |
 | **abiquo.openid.client.name** | The name of the client on the OpenID Connect server for the Abiquo platform. |
 | **abiquo.openid.client.id** | The ID of the client on the OpenID Connect server for the Abiquo platform. |
 | **abiquo.openid.client.secret** | The secret of the client on the OpenID Connect server for the Abiquo platform. |
@@ -182,7 +180,7 @@ When you run Abiquo in OpenID Connect mode, you must configure the Outbound API 
 
 Register the Outbound API as an OAuth app (for Outbound API user or admin user). You download an Abiquo tool from the Abiquo Support portal to obtain the OAuth access tokens. Configure credentials in `abiquo.properties` and remove any old credentials properties.
 
-Here are the full configuration steps. 
+Here are the full configuration steps.
 
 1. Create a new app for the  "default api outbound user"  as explained in the  "Manage OAuth Applications"  guide, and set all the privileges for that user; OR  
    Create the app in the administrator account, and select only the permissions for the  "default api outbound user".
@@ -233,14 +231,14 @@ To obtain an access token:
 
 Using the token, you can issue requests to the API by providing the following HTTP header: `Authorization: Bearer <ACCESS_TOKEN>`. For example:
 
-```
+```bash
   ▎ curl -X GET "http://<abiquo-api-host>/api/cloud/virtualdatacenters" \
   ▎   -H "Authorization: Bearer <ACCESS_TOKEN>"
-```   
+```
 
 ## Optional SameSite cookie flag configuration
 
-On the Abiquo Server, optionally set the `abiquo.login.samesite` property to control the value of the `SameSite` flag of the login cookie. See [Abiquo Configuration Properties#samesite] (https://wiki.abiquo.com/display/doc/Abiquo+Configuration+Properties#AbiquoConfigurationProperties-samesite).
+On the Abiquo Server, optionally set the `abiquo.login.samesite` property to control the value of the `SameSite` flag of the login cookie. See [Abiquo Configuration Properties#samesite](https://wiki.abiquo.com/display/doc/Abiquo+Configuration+Properties#AbiquoConfigurationProperties-samesite).
 
 ## Refreshing access tokens
 
@@ -250,7 +248,7 @@ Some OpenID Connect providers issue new refresh tokens every time you refresh an
 
 To request a new access token using a refresh token, send an HTTP request to the `openid_connect_refresh` Abiquo API endpoint, passing the refresh token as a query parameter:
 
-```
+```curl
 curl -v "http://<abiquo-api-host>/api/openid_connect_refresh?refresh_token=<REFRESH_TOKEN>" \
     -H "Accept: application/vnd.abiquo.oidctokens+json"
 
@@ -268,11 +266,13 @@ curl -v "http://<abiquo-api-host>/api/openid_connect_refresh?refresh_token=<REFR
 The refresh token is meant to be used when the access token is expired. So the Abiquo API passes the refresh token to the authorization server and lets it verify the validity of the token and the identity associated with it.
 
 ## Troubleshooting
+
 The OpenID login process can return an error message, for example, due to a delayed login or timeout.  
 To prevent this, for Internet Explorer cookies, in `server.xml` on Abiquo Tomcat, the `<Host>` section should contain an `<Alias>` section with the domain of the web server (where users access the UI).  
 Abiquo has changed the default Java session timeout to 30 minutes to ensure user delays during OpenID login won't result in further errors.
 
-## Changelog to Abiquo Open ID integration
+## Change log for Abiquo OpenID integration
+
 ### Changes in Abiquo 5.1.2
 
 This version introduced a new Abiquo configuration property
