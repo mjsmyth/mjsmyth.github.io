@@ -41,7 +41,7 @@ See [Check roles or privileges in API docs](https://github.com/mjsmyth/abiquo-wi
 
 Migrating from Confluence Server to Confluence Cloud took several months. When you get to Cloud, your pages will be in the "legacy editor".
 Hopefully, you will be able to easily convert them to the "new editor" and it will offer all of the functionality necessary for your documentation use case.
-As part of a migration, I wrote scripts to automate many tasks, such as, [check which editor the page is using](https://github.com/mjsmyth/abiquo-wiki-scripts/blob/master/confluence_cloud_migration/ccloGetEditor.py).
+As part of a migration, I wrote scripts to automate many tasks, such as, [check which editor the page is using](https://github.com/mjsmyth/abiquo-wiki-scripts/blob/master/confluence_cloud_migration/ccloGetEditor.py). This meant that I could easily access the pages using the legacy editor without having to edit the pages, which saved a lot of time.
 
 ## Add data for screenshots using the product API
 
