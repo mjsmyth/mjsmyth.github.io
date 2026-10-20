@@ -1,7 +1,9 @@
 <!-- docs/_sidebar.md -->
 
 * [Home](/)
-* [OpenID integration](abiquo_openid_integration.md)
+* [About OpenID integration](about_abiquo_openid_integration.md)
+* [Configure OpenID integration](configure_abiquo_openid_integration.md)
+* [Reference OpenID integration](reference_abiquo_openid_integration.md)
 * [How to create a tenant via API](how_to_create_a_tenant_via_API.md)
 * [Upgrade Abiquo distributed by servers](upgrade_abiquo_54_to_60x_distributed_by_servers.md)
 * [ReadMe link checker](readme_link_checker.md)
