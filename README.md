@@ -6,13 +6,17 @@ Welcome to my work-in-progress documentation portfolio site.
 
 Engrossing systems administrator and developer reading!
 
-* [Abiquo OpenID Integration](https://mjsmyth.github.io/#/abiquo_openid_integration)
+* [About OpenID integration](https://mjsmyth.github.io/#/about_abiquo_openid_integration.md)
+* [Configure OpenID integration](https://mjsmyth.github.io/#/configure_abiquo_openid_integration.md)
+* [Reference OpenID integration](https://mjsmyth.github.io/#/reference_abiquo_openid_integration.md)
+
 * [Create a tenant via API](https://mjsmyth.github.io/#/create_a_tenant_via_API)
+
 * [Upgrade Abiquo by servers](https://mjsmyth.github.io/#/upgrade_abiquo_54_to_60x_distributed_by_servers)
 
 ## Documentation automation projects
 
-Tales of triumph from the documentation trenches! The ReadMe link checker project  became obsolete after about a year when the platform introduced its own link checking function! The Abiquo API examples project improved docs and product usability. The Documentation release and Screenshot cropping projects both saved time in the documentation workflow.
+Tales of triumph from the documentation trenches! The ReadMe link checker project became obsolete after about a year when the platform introduced its own link checking function! The Abiquo API examples project improved docs and product usability. The Documentation release and Screenshot cropping projects both saved time in the documentation workflow.
 
 * [ReadMe link checker](https://mjsmyth.github.io/#/readme_link_checker)
 * [Abiquo API examples](https://mjsmyth.github.io/#/abiquo_api_examples)
@@ -26,7 +30,7 @@ For further entertainment, please check out my [Illustration site](https://sites
 
 ## LLM use
 
-I used Claude to reorganise my automation project descriptions into a more direct format.
+I used Claude to reorganise the content of my automation description pages into a more direct format.
 
 In my sample documentation, I used Claude Code to hack a fork of the Confluence XML to markdown converter (https://github.com/oberlies/confluence-to-markdown-converter) into shape to recover old Abiquo wiki files. And I used the [Hackmamba Claude skills](https://github.com/hackmamba-io/creator-skills) (specifically, `audience_analyzer` and `style_guide_enforcer`) to review my writing and suggest improvements.
 
